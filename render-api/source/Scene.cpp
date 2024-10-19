@@ -4,12 +4,12 @@ void SceneManager::loadScene(std::shared_ptr<Scene> scene)
 {
 	if (this->sceneInstance)
 	{
-		sceneInstance->onSceneExit();
+		sceneInstance->onSceneExit(this->renderer);
 	}
 	sceneInstance = scene;
 	if (this->sceneInstance)
 	{
-		sceneInstance->onSceneLoad();
+		sceneInstance->onSceneLoad(this->renderer);
 	}
 }
 
@@ -17,7 +17,7 @@ void SceneManager::update()
 {
 	if (sceneInstance)
 	{
-		sceneInstance->onSceneUpdate();
+		sceneInstance->onSceneUpdate(this->renderer);
 	}
 }
 
@@ -25,7 +25,7 @@ void SceneManager::draw()
 {
 	if (sceneInstance)
 	{
-		sceneInstance->onSceneDraw();
+		sceneInstance->onSceneDraw(this->renderer);
 	}
 }
 
@@ -33,6 +33,6 @@ void SceneManager::cleanup()
 {
 	if (sceneInstance)
 	{
-		sceneInstance->onSceneExit();
+		sceneInstance->onSceneExit(this->renderer);
 	}
 }

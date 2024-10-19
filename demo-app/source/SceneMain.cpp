@@ -1,19 +1,22 @@
 #include <test_scenes/SceneMain.h>
 
-void SceneMain::onSceneLoad()
-{
-	std::cout << "SceneMain entered!" << std::endl;
+void SceneMain::onSceneLoad(Renderer renderer) {
+
 }
 
-void SceneMain::onSceneUpdate()
-{
-	std::cout << "SceneMain is running!" << std::endl;
+void SceneMain::onSceneUpdate(Renderer renderer) {
+
 }
 
-void SceneMain::onSceneDraw()
-{
+
+void SceneMain::onSceneDraw(Renderer renderer) {
+
 }
-void SceneMain::onSceneExit()
-{
+
+void SceneMain::onSceneExit(Renderer renderer) {
+
 }
+
+
+
 

@@ -1,12 +1,10 @@
 #include <util/Scene.h>
 
-#include <iostream>
-
 class SceneMain : public Scene
 {
 public:
-	void onSceneLoad() override;
-	void onSceneUpdate() override;
-	void onSceneDraw() override;
-	void onSceneExit() override;
+	void onSceneLoad(Renderer renderer);
+	void onSceneUpdate(Renderer renderer);
+	void onSceneDraw(Renderer renderer);
+	void onSceneExit(Renderer renderer);
 };

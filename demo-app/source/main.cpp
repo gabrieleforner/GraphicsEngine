@@ -4,7 +4,7 @@
 
 int main(int argc, char** argv)
 {
-	AppConfig config{};
+	AppConfig config;
 	
 	config.entryScene = std::make_shared<SceneMain>();
 	config.useEngineerMode = false;
@@ -13,6 +13,4 @@ int main(int argc, char** argv)
 	config.windowTitle = "[FASTGFX] Gioco Godereccio v1.0-dev";
 
 	ApplicationModel().Run(config);
-
-	return 0;
 }

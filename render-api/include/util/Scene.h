@@ -1,30 +1,27 @@
-#ifndef __SCENE_H_
-#define __SCENE_H_
-
-
+#pragma once
 #include <memory>
-#include <util/ExportRule.h>
+#include <core/Renderer.h>
 
 using namespace std;
 
-class ENGINE_API Scene
+class Scene
 {
 public:
-	virtual void onSceneLoad() = 0;
-	virtual void onSceneUpdate() = 0;
-	virtual void onSceneDraw() = 0;
-	virtual void onSceneExit() = 0;
+	virtual void onSceneLoad(Renderer renderer) = 0;
+	virtual void onSceneUpdate(Renderer renderer) = 0;
+	virtual void onSceneDraw(Renderer renderer) = 0;
+	virtual void onSceneExit(Renderer renderer) = 0;
 };
 
-class ENGINE_API SceneManager
+class SceneManager
 {
 private:
 	std::shared_ptr<Scene> sceneInstance;
 
 public:
+	Renderer renderer;
 	void loadScene(std::shared_ptr<Scene> scene);
 	void update();
 	void draw();
 	void cleanup();
 };
-#endif // !__SCENE_H_

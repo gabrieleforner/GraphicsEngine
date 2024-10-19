@@ -4,11 +4,22 @@ project(render_api)
 find_package(Vulkan REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 
-file(GLOB SOURCES "source/*.cpp")
 if(WIN32)
-	add_library(render_api STATIC ${SOURCES})
+	add_library(render_api STATIC
+			include/core/AppModel.h
+			include/core/Renderer.h
+			include/util/Scene.h
+			source/AppModel.cpp
+			source/Renderer.cpp
+			source/Scene.cpp)
 else()
-	add_library(render_api SHARED ${SOURCES})
+	add_library(render_api SHARED
+			include/core/AppModel.h
+			include/core/Renderer.h
+			include/util/Scene.h
+			source/AppModel.cpp
+			source/Renderer.cpp
+			source/Scene.cpp)
 endif()
 
 target_include_directories(render_api PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

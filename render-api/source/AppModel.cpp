@@ -17,8 +17,12 @@ int ApplicationModel::Run(AppConfig config)
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-	scene_manager.loadScene(config.entryScene);
 
+	Renderer renderer;
+	renderer.createInstance();
+
+	scene_manager.renderer = renderer;
+	scene_manager.loadScene(config.entryScene);
 	while (!glfwWindowShouldClose(window))
 	{
 		scene_manager.update();
