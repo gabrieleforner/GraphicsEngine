@@ -17,16 +17,13 @@ struct ENGINE_API AppConfig
 	int windowHeight;
 	std::string windowTitle;
 	bool useEngineerMode;
+	std::shared_ptr<Scene> entryScene;
 };
 
 class ENGINE_API ApplicationModel
 {
 protected:
 	SceneManager scene_manager;
-	virtual void onApplicationStart();	// Called at first frame.
-	virtual void onApplicationUpdate();	// Non-drawing class and Mathematical Updates (e.g. setting BG color, updating Transforms)
-	virtual void onApplicationDraw();	// Draw calls (e.g. drawing primitives)
-	virtual void onApplicationExit();	// Clean up resources
 public:
 	int Run(AppConfig config);
 };

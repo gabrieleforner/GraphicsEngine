@@ -2,25 +2,17 @@
 #include <core/AppModel.h>
 #include <test_scenes/SceneMain.h>
 
-class Gioco : public ApplicationModel
-{
-	void onApplicationStart()
-	{
-		scene_manager.loadScene(std::make_shared<SceneMain>());
-		scene_manager.loadScene(std::make_shared<SceneMain>());
-	}
-};
-
-AppConfig config{};
-
 int main(int argc, char** argv)
 {
+	AppConfig config{};
+	
+	config.entryScene = std::make_shared<SceneMain>();
 	config.useEngineerMode = false;
 	config.windowWidth = 800;
 	config.windowHeight = 600;
-	config.windowTitle = "PUERCO GOD";
+	config.windowTitle = "[FASTGFX] Gioco Godereccio v1.0-dev";
 
-	Gioco().Run(config);
+	ApplicationModel().Run(config);
 
 	return 0;
 }
