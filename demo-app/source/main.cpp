@@ -2,7 +2,6 @@
 #include <core/AppModel.h>
 #include <test_scenes/SceneMain.h>
 
-
 int main(int argc, char** argv)
 {
 	AppConfig config{};
