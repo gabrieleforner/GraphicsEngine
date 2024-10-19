@@ -1,10 +1,5 @@
 #include "core/AppModel.h"
 
-void ApplicationModel::onApplicationStart() {}
-void ApplicationModel::onApplicationUpdate() {}
-void ApplicationModel::onApplicationDraw() {}
-void ApplicationModel::onApplicationExit() {}
-
 int ApplicationModel::Run(AppConfig config)
 {
 	if (!glfwInit())
@@ -23,16 +18,16 @@ int ApplicationModel::Run(AppConfig config)
 	}
 	glfwMakeContextCurrent(window);
 
-	this->onApplicationStart();
+	scene_manager.loadScene(config.entryScene);
 
 	while (!glfwWindowShouldClose(window))
 	{
-		this->onApplicationUpdate();
-		this->onApplicationDraw();
+		scene_manager.update();
+		scene_manager.draw();
 		glfwPollEvents();
 	}
 
-	this->onApplicationExit();
+	scene_manager.cleanup();
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
