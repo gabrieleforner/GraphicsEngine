@@ -6,4 +6,4 @@ file(GLOB SOURCES "source/*.cpp")
 add_executable(demo_app ${SOURCES})
 
 target_link_libraries(demo_app PRIVATE render_api)
-target_include_directories(demo_app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../render-api/include)
+target_include_directories(demo_app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../render-api/include include/)

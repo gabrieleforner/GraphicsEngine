@@ -1,9 +1,14 @@
 #include <iostream>
 #include <core/AppModel.h>
+#include <test_scenes/SceneMain.h>
 
 class Gioco : public ApplicationModel
 {
-	//dio cnae
+	void onApplicationStart()
+	{
+		scene_manager.loadScene(std::make_shared<SceneMain>());
+		scene_manager.loadScene(std::make_shared<SceneMain>());
+	}
 };
 
 AppConfig config{};

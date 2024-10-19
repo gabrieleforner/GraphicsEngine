@@ -7,7 +7,8 @@
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
 
-#include "ExportRule.h"
+#include "util/ExportRule.h"
+#include "util/Scene.h"
 
 // Sets base window settings (width, height, title)
 struct ENGINE_API AppConfig
@@ -21,6 +22,7 @@ struct ENGINE_API AppConfig
 class ENGINE_API ApplicationModel
 {
 protected:
+	SceneManager scene_manager;
 	virtual void onApplicationStart();	// Called at first frame.
 	virtual void onApplicationUpdate();	// Non-drawing class and Mathematical Updates (e.g. setting BG color, updating Transforms)
 	virtual void onApplicationDraw();	// Draw calls (e.g. drawing primitives)

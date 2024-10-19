@@ -22,13 +22,13 @@ int ApplicationModel::Run(AppConfig config)
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
-
 	this->onApplicationStart();
-
 	while (!glfwWindowShouldClose(window))
 	{
 		this->onApplicationUpdate();
+		scene_manager.update();
 		this->onApplicationDraw();
+		scene_manager.draw();
 		glfwPollEvents();
 	}
 
