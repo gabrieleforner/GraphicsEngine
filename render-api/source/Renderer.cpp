@@ -4,14 +4,6 @@
 #include <vulkan/vk_enum_string_helper.h>
 #include <vulkan/vulkan.h>
 
-bool hasValidationLayer(const std::vector<VkLayerProperties>& availableLayers, const char* validationLayerName) {
-    for (const auto& layer : availableLayers) {
-        if (std::strcmp(layer.layerName, validationLayerName) == 0) {
-            return true;
-        }
-    }
-    return false;
-}
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
     VkDebugUtilsMessageTypeFlagsEXT messageType,
@@ -20,13 +12,24 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
 
     switch (messageSeverity) {
         case VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT:
-            std::cout << "[WARNING] " << " " << pCallbackData->pMessage << std::endl;
+            em_printWarning(pCallbackData->pMessage);
         case VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT:
-            std::cout << "[ERROR] " << " " << pCallbackData->pMessage << std::endl;
+            em_printError(pCallbackData->pMessage);
+        case VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT:
+            em_printInfo(pCallbackData->pMessage);
+        default: break;
     }
     return VK_FALSE;
 }
 
+bool hasValidationLayer(const std::vector<VkLayerProperties>& availableLayers, const char* validationLayerName) {
+    for (const auto& layer : availableLayers) {
+        if (std::strcmp(layer.layerName, validationLayerName) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
 VkDebugUtilsMessengerCreateInfoEXT createDebugMessengerInfo() {
     VkDebugUtilsMessengerCreateInfoEXT createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
@@ -39,7 +42,6 @@ VkDebugUtilsMessengerCreateInfoEXT createDebugMessengerInfo() {
     createInfo.pfnUserCallback = debugCallback;
     return createInfo;
 }
-
 void Renderer::createInstance(bool engineerMode)
 {
     VkResult result;
@@ -75,12 +77,6 @@ void Renderer::createInstance(bool engineerMode)
     std::vector<VkExtensionProperties> vk_extension_properties(supportedExtCount);
     vkEnumerateInstanceExtensionProperties(nullptr, &supportedExtCount, vk_extension_properties.data());
 
-    std::cout << "Instance Supported extensions: " << std::endl;
-    for (auto& ext : vk_extension_properties) {
-        std::cout << '\t' << ext.extensionName << std::endl;
-        engine_vk_extensions.emplace_back(ext.extensionName);
-    }
-
 #ifdef __APPLE__
     engine_vk_extensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
 #endif
@@ -93,10 +89,6 @@ void Renderer::createInstance(bool engineerMode)
     std::vector<VkLayerProperties> layers(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
 
-    std::cout << "Instance Layers Supported: " << std::endl;
-    for (auto& layer : layers) {
-        std::cout << '\t' << layer.layerName << std::endl;
-    }
     if (engineerMode) {
        if(hasValidationLayer(layers, "VK_LAYER_KHRONOS_validation")) {
            std::cout << "Vulkan validation layer is present! Enabling engineer mode...." << std::endl;
@@ -128,16 +120,18 @@ void Renderer::createInstance(bool engineerMode)
     auto func = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(this->engine_instance, "vkCreateDebugUtilsMessengerEXT");
     if (func != nullptr) {
         func(this->engine_instance, &debg_create_info_ext, nullptr, &this->engModeCallbackHandle);
-        std::cout << "Debug Callback Handle created!" << std::endl;
+        printSuccess("Engineer Mode (VkDebugUtilsMessengerEXT) Created!");
+    }
+    else {
+        printError("Failed to create debug messenger!");
     }
 
     result = vkCreateInstance(&createInfo, nullptr, &engine_instance);
     if (result != VK_SUCCESS) { throw std::runtime_error(string_VkResult(result)); }
-    else { std::cout << "VkInstance created!" << std::endl; }
+    else { printSuccess("VkInstance Created!"); }
 
 }
-void Renderer::destroy() {
-    vkDestroyInstance(this->engine_instance, nullptr);
+void Renderer::destroy() const {
 
     if (this->engModeCallbackHandle != VK_NULL_HANDLE)
     {
@@ -148,4 +142,5 @@ void Renderer::destroy() {
             func(this->engine_instance, this->engModeCallbackHandle, nullptr);
         }
     }
+    vkDestroyInstance(this->engine_instance, nullptr);
 }

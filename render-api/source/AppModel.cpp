@@ -19,6 +19,7 @@ int ApplicationModel::Run(AppConfig config)
 	glfwMakeContextCurrent(window);
 
 	Renderer renderer;
+	std::cout << "=======================| FastGFX Engine |=======================" << std::endl;
 	renderer.createInstance(config.useEngineerMode);
 
 	scene_manager.renderer = renderer;

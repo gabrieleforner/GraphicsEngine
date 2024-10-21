@@ -11,6 +11,6 @@ public:
     VkDebugUtilsMessengerEXT engModeCallbackHandle = nullptr;
 
     void createInstance(bool engineerMode);
-    void destroy();
+    void destroy() const;
 };
 
