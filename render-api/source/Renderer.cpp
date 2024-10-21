@@ -137,6 +137,8 @@ void Renderer::createInstance(bool engineerMode)
 
 }
 void Renderer::destroy() {
+    vkDestroyInstance(this->engine_instance, nullptr);
+
     if (this->engModeCallbackHandle != VK_NULL_HANDLE)
     {
         auto func = reinterpret_cast<PFN_vkDestroyDebugUtilsMessengerEXT>(vkGetInstanceProcAddr(
