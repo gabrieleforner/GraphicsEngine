@@ -122,10 +122,6 @@ void Renderer::createInstance(bool engineerMode)
     createInfo.enabledExtensionCount = engine_vk_extensions.size();
     createInfo.ppEnabledExtensionNames = engine_vk_extensions.data();
 
-    result = vkCreateInstance(&createInfo, nullptr, &engine_instance);
-    if (result != VK_SUCCESS) { throw std::runtime_error(string_VkResult(result)); }
-    else { std::cout << "VkInstance created!" << std::endl; }
-
     VkDebugUtilsMessengerCreateInfoEXT debg_create_info_ext = createDebugMessengerInfo();
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pNext = &debg_create_info_ext;
