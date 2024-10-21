@@ -19,7 +19,8 @@ else()
 			include/util/Scene.h
 			source/AppModel.cpp
 			source/Renderer.cpp
-			source/Scene.cpp)
+			source/Scene.cpp
+			include/util/ConsoleLog.h)
 endif()
 
 target_include_directories(render_api PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

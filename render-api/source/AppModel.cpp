@@ -19,7 +19,7 @@ int ApplicationModel::Run(AppConfig config)
 	glfwMakeContextCurrent(window);
 
 	Renderer renderer;
-	renderer.createInstance();
+	renderer.createInstance(config.useEngineerMode);
 
 	scene_manager.renderer = renderer;
 	scene_manager.loadScene(config.entryScene);
@@ -31,6 +31,7 @@ int ApplicationModel::Run(AppConfig config)
 	}
 
 	scene_manager.cleanup();
+	renderer.destroy();
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
