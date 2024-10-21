@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 	AppConfig config;
 	
 	config.entryScene = std::make_shared<SceneMain>();
-	config.useEngineerMode = false;
+	config.useEngineerMode = true;
 	config.windowWidth = 800;
 	config.windowHeight = 600;
 	config.windowTitle = "[FASTGFX] Gioco Godereccio v1.0-dev";
