@@ -19,18 +19,22 @@ int ApplicationModel::Run(AppConfig config)
 	glfwMakeContextCurrent(window);
 
 	Renderer renderer;
-	renderer.createInstance();
+	renderer.create(window);
 
 	scene_manager.renderer = renderer;
 	scene_manager.loadScene(config.entryScene);
 	while (!glfwWindowShouldClose(window))
 	{
+		renderer.setFrame();
 		scene_manager.update();
+		renderer.startDrawRecord();
 		scene_manager.draw();
+		renderer.endDrawRecord();
 		glfwPollEvents();
 	}
 
 	scene_manager.cleanup();
+	renderer.destroy();
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	return 0;
