@@ -220,7 +220,6 @@ void Renderer::startDrawRecord() {
     scissor.extent = swapchain.extent;
     vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 }
-
 void Renderer::endDrawRecord() {
     vkCmdEndRenderPass(this->commandBuffer);
     vkEndCommandBuffer(this->commandBuffer);
@@ -262,9 +261,9 @@ void Renderer::endDrawRecord() {
     presentInfo.pImageIndices = &imageIndex;
     vkQueuePresentKHR(this->enginePresentQueue, &presentInfo);
 }
-
 void Renderer::destroy()
 {
+    vkWaitForFences(device, 1, &inFlightFence, VK_TRUE, UINT64_MAX);
     vkDestroySemaphore(device, imageAvailableSemaphore, nullptr);
     vkDestroySemaphore(device, renderFinishedSemaphore, nullptr);
     vkDestroyFence(device, inFlightFence, nullptr);

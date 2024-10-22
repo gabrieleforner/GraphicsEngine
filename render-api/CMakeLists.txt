@@ -5,6 +5,7 @@ find_package(Vulkan REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(vk-bootstrap)
 
+set(CMAKE_CXX_STANDARD 23)
 set(SOURCES include/core/AppModel.h
 		include/core/Renderer.h
 		include/util/Scene.h
