@@ -188,23 +188,23 @@ void Renderer::setFrame() {
     vkResetFences(device, 1, &inFlightFence);
     vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphore, VK_NULL_HANDLE, &imageIndex);
     vkResetCommandBuffer(this->commandBuffer, 0);
+}
 
+void Renderer::startDrawRecord() {
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     beginInfo.flags = 0; // Optional
     beginInfo.pInheritanceInfo = nullptr; // Optional
-    vkBeginCommandBuffer(this->commandBuffer, &beginInfo);
 
+    vkBeginCommandBuffer(this->commandBuffer, &beginInfo);
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = this->engineRenderPass;
     renderPassInfo.framebuffer = framebuffers[imageIndex];
-    renderPassInfo.renderArea.offset = {0 ,0};
+    renderPassInfo.renderArea.offset = { 0 ,0 };
     renderPassInfo.renderArea.extent = swapchain.extent;
-}
-
-void Renderer::startDrawRecord() {
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &this->clearColor;
+
     vkCmdBeginRenderPass(this->commandBuffer, &this->renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
     VkViewport viewport{};
     viewport.x = 0.0f;
@@ -263,6 +263,7 @@ void Renderer::endDrawRecord() {
 }
 void Renderer::destroy()
 {
+    vkDeviceWaitIdle(this->engineDevice);
     vkWaitForFences(device, 1, &inFlightFence, VK_TRUE, UINT64_MAX);
     vkDestroySemaphore(device, imageAvailableSemaphore, nullptr);
     vkDestroySemaphore(device, renderFinishedSemaphore, nullptr);
@@ -281,4 +282,18 @@ void Renderer::destroy()
     vkb::destroy_debug_utils_messenger(this->engineInstance, this->engineDebugMessenger);
     vkDestroyInstance(this->engineInstance, nullptr);
     std::cout << "Goodbye!" << std::endl;
+}
+
+void Renderer::clearBG(float r, float g, float b, float a)
+{
+    VkClearAttachment clearAttachment{};
+    clearAttachment.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    clearAttachment.clearValue.color = { {r, g, b, a} };
+
+    VkClearRect clearRect{};
+    clearRect.rect.offset = { 0, 0 };
+    clearRect.rect.extent = this->swapchain.extent;
+    clearRect.baseArrayLayer = 0;
+    clearRect.layerCount = 1;
+    vkCmdClearAttachments(commandBuffer, 1, &clearAttachment, 1, &clearRect);
 }

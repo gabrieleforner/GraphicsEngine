@@ -41,6 +41,8 @@ public:
     void destroy();
 
 
+    void clearBG(float r, float g, float b, float a);
+
 };
 
 
