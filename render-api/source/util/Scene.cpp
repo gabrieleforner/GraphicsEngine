@@ -1,5 +1,7 @@
 #include "util/Scene.h"
 
+using namespace FastGFX::Util;
+
 void SceneManager::loadScene(std::shared_ptr<Scene> scene)
 {
 	if (this->sceneInstance)

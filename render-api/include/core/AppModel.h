@@ -5,20 +5,24 @@
 
 #include "util/Scene.h"
 
-// Sets base window settings (width, height, title)
-struct AppConfig
+using namespace FastGFX::Util;
+namespace FastGFX::Core
 {
-	int windowWidth;
-	int windowHeight;
-	std::string windowTitle;
-	bool useEngineerMode;
-	std::shared_ptr<Scene> entryScene;
-};
+	// Sets base window settings (width, height, title)
+	struct AppConfig
+	{
+		int windowWidth;
+		int windowHeight;
+		std::string windowTitle;
+		bool useEngineerMode;
+		std::shared_ptr<Scene> entryScene;
+	};
 
-class ApplicationModel
-{
-protected:
-	SceneManager scene_manager;
-public:
-	int Run(AppConfig config);
-};
+	class ApplicationModel
+	{
+	protected:
+		Util::SceneManager scene_manager;
+	public:
+		int Run(AppConfig config);
+	};
+}

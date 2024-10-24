@@ -1,6 +1,6 @@
 {
-  "dependencies": [
-    "glfw3",
-    "vk-bootstrap"
-  ]
+  "dependencies" : [ "glfw3", "vk-bootstrap", {
+    "name" : "glm",
+    "version>=" : "1.0.1#3"
+  } ]
 }

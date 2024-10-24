@@ -13,7 +13,11 @@ set(SOURCES include/core/AppModel.h
 		source/core/Renderer.cpp
 		source/util/Scene.cpp
 		source/util/ConsoleLog.cpp
-		source/util/VkBootstrap.cpp)
+		source/util/VkBootstrap.cpp
+		source/resource/Buffer.cpp
+		include/resource/Buffer.h
+		source/resource/Shader.cpp
+		include/resource/Shader.h)
 
 if(WIN32)
 	add_library(render_api STATIC ${SOURCES})

@@ -1,5 +1,7 @@
 #include <util/Scene.h>
 
+using namespace FastGFX::Util;
+
 class SceneMain : public Scene
 {
 public:
