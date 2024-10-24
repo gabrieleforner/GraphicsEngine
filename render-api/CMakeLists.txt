@@ -20,7 +20,7 @@ set(SOURCES include/core/AppModel.h
 		include/resource/Shader.h)
 
 if(WIN32)
-	add_library(render_api STATIC ${SOURCES})
+	add_library(render_api STATIC ${SOURCES} "include/core/Pipeline.h" "source/core/Pipeline.cpp")
 else()
 	add_library(render_api SHARED ${SOURCES})
 endif()

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <core/Pipeline.h>
 
 #include "util/Scene.h"
 
@@ -18,11 +19,10 @@ namespace FastGFX::Core
 		std::shared_ptr<Scene> entryScene;
 	};
 
-	class ApplicationModel
-	{
-	protected:
-		Util::SceneManager scene_manager;
-	public:
-		int Run(AppConfig config);
-	};
-}
+class ApplicationModel
+{
+protected:
+	SceneManager scene_manager;
+public:
+	int Run(AppConfig config);
+};
