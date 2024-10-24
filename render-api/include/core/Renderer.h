@@ -17,7 +17,6 @@ namespace FastGFX::Core
         std::vector<VkImageView> imageViews;
         std::vector<VkFramebuffer> framebuffers;
         VkCommandPool commandPool;
-        VkCommandBuffer commandBuffer;
 
         uint32_t imageIndex;
         VkRenderPassBeginInfo renderPassInfo = {};
@@ -35,6 +34,7 @@ namespace FastGFX::Core
         VkQueue engineGraphicsProcQueue;
         VkRenderPass engineRenderPass;
         VkClearValue clearColor = {};
+        VkCommandBuffer commandBuffer;
 
         void create(GLFWwindow* window);
         void setFrame();
