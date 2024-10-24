@@ -1,6 +1,8 @@
 #include <util/Scene.h>
+#include <resource/Buffer.h>
 
 using namespace FastGFX::Util;
+using namespace FastGFX::Resource;
 
 class SceneMain : public Scene
 {
